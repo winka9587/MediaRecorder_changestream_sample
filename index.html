@@ -16,21 +16,16 @@
     <meta itemprop="name" content="WebRTC code samples">
     <meta name="mobile-web-app-capable" content="yes">
     <meta id="theme-color" name="theme-color" content="#ffffff">
-
     <base target="_blank">
-
     <title>Select audio and video sources</title>
-
     <style>
         div.select {
             display: inline-block;
             margin: 0 0 1em 0;
         }
-
         p.small {
             font-size: 0.7em;
         }
-
         label {
             width: 12em;
             display: inline-block;
@@ -42,40 +37,45 @@
 <body>
 <div id="container">
 
-    <h1><a href="//webrtc.github.io/samples/" title="WebRTC samples homepage">WebRTC samples</a><span>Select sources &amp; outputs</span>
+    <h1><span>选择输入输出设备+录制=在录制过程中更换设备 <a href="https://github.com/cx568151847/MediaRecorder_changestream_sample"
+       title="View source for this page on GitHub" id="viewSource">View source on GitHub</a></span>
     </h1>
-
+	
+	<p>demo中的设备选择代码参考自<a href="https://webrtc.github.io/samples/src/content/devices/input-output/">WebRTC示例</a>  webrtc官方示例<a href="https://webrtc.github.io/samples/">more</a></p>
+	<!--
     <p>Get available audio, video sources and audio output devices from <code>mediaDevices.enumerateDevices()</code>
         then set the source for <code>getUserMedia()</code> using a <code>deviceId</code> constraint.</p>
-
+	-->
+	<p>通过<code>getUserMedia()</code>获得可用的设备信息，通过下面的选项选择，选择并获得权限后，新设备将被套用<br>
+	demo操作流程：选择设备并启动后，点击Record开始录制，录制过程中通过三个下拉框更换设备，可通过下面观察到结果。不建议频繁地开始停止录制，可能导致延迟以及录制失败</p>
+	<br>
     <div class="select">
         <label for="audioSource">Audio input source: </label><select id="audioSource"></select>
     </div>
 
     <div class="select">
-        <label for="audioOutput">Audio output destination: </label><select id="audioOutput"></select>
+        <label for="audioOutput">Audio output : </label><select id="audioOutput"></select>
     </div>
 
     <div class="select">
         <label for="videoSource">Video source: </label><select id="videoSource"></select>
     </div>
 	<br>
+	<b>当前所选设备的实时影像</b><br>
     <video id="video" playsinline autoplay></video>
 
-    <p class="small"><b>Note:</b> If you hear a reverb sound your microphone is picking up the output of your
-        speakers/headset, lower the volume and/or move the microphone further away from your speakers/headset.</p>
+    <p class="small"><b>Note:</b> 建议佩戴耳机，否则声音可能在你的扬声器和话筒之间形成循环</p>
 
-    <a href="https://github.com/webrtc/samples/tree/gh-pages/src/content/devices/input-output"
-       title="View source for this page on GitHub" id="viewSource">View source on GitHub</a>
 	 <!--添加录制播放-->
-	<button id='record'>record</button>
-	<button id='stop'>stop</button>
-	<button id='printstate'>printstate</button>
+	<button id='record'>Record</button>
+	<button id='stop'>Stop</button>
+	<button id='printstate'>在控制台打印信息</button>
 	<div id='soundClips'></div>
-	<br><a>------------------</a>
 	<br>
-	<video id='videoPlay_Continue' width='480px' height='320px' controls autoplay muted></video><br>
+	<b>录制得到的视频(默认静音)</b><br>
+	<video id='videoPlay_Continue' controls autoplay muted></video><br>
 	<!--end-->
+	<br><br><br>
 </div>
 <!--
 <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
